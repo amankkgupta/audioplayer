@@ -26,7 +26,7 @@ class AppAudioHandler extends BaseAudioHandler with QueueHandler, SeekHandler {
         MediaItem(
           id: urls[i],
           album: 'Bhagavad Gita Hindi',
-          title: '$skandhName अध्याय ${i + 1}',
+          title: '$skandhName part ${i + 1}',
           artist: skandhName,
         ),
     ];

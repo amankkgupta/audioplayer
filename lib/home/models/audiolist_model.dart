@@ -10,47 +10,71 @@ class AudioModel {
   });
 
   factory AudioModel.fromAudioJson(Map<String, dynamic> json) {
-    final audioUrl = json['audio_url'] as Map<String, dynamic>? ?? <String, dynamic>{};
-
     return AudioModel(
       title: (json['title'] ?? '').toString(),
-      urls: List<String>.from(audioUrl['urls'] ?? const <String>[]),
+      urls: _extractUrls(json, keys: const ['audio_url', 'audio_urls', 'url', 'urls']),
       pdfUrls: const <String>[],
     );
   }
 
   factory AudioModel.fromBookJson(Map<String, dynamic> json) {
-    final pdfUrls = _parsePdfUrls(json['pdf_url']);
-
     return AudioModel(
       title: (json['title'] ?? '').toString(),
       urls: const <String>[],
-      pdfUrls: pdfUrls,
+      pdfUrls: _extractUrls(json, keys: const ['pdf_url', 'pdf_urls', 'url', 'urls']),
     );
   }
 
-  static List<String> _parsePdfUrls(dynamic rawPdfUrl) {
-    if (rawPdfUrl is String && rawPdfUrl.trim().isNotEmpty) {
-      return <String>[rawPdfUrl];
+  static List<String> _extractUrls(Map<String, dynamic> json, {required List<String> keys}) {
+    for (final key in keys) {
+      final value = json[key];
+      final urls = _normalizeUrlValue(value);
+      if (urls.isNotEmpty) {
+        return urls;
+      }
+    }
+    return const <String>[];
+  }
+
+  static List<String> _normalizeUrlValue(dynamic value) {
+    if (value == null) {
+      return const <String>[];
     }
 
-    if (rawPdfUrl is List) {
-      return rawPdfUrl
-          .map((e) => e.toString())
-          .where((e) => e.isNotEmpty)
+    if (value is String) {
+      final trimmed = value.trim();
+      return trimmed.isEmpty ? const <String>[] : <String>[trimmed];
+    }
+
+    if (value is List) {
+      return value
+          .map((item) => item?.toString().trim() ?? '')
+          .where((item) => item.isNotEmpty)
           .toList();
     }
 
-    if (rawPdfUrl is Map<String, dynamic>) {
-      final urls = rawPdfUrl['urls'];
-      if (urls is List) {
-        return urls
-            .map((e) => e.toString())
-            .where((e) => e.isNotEmpty)
+    if (value is Map<String, dynamic>) {
+      final nestedUrls = value['urls'];
+      if (nestedUrls is List) {
+        return nestedUrls
+            .map((item) => item?.toString().trim() ?? '')
+            .where((item) => item.isNotEmpty)
             .toList();
       }
-      if (urls is String && urls.trim().isNotEmpty) {
-        return <String>[urls];
+
+      if (nestedUrls is String) {
+        final trimmed = nestedUrls.trim();
+        if (trimmed.isNotEmpty) {
+          return <String>[trimmed];
+        }
+      }
+
+      final directUrl = value['url'];
+      if (directUrl is String) {
+        final trimmed = directUrl.trim();
+        if (trimmed.isNotEmpty) {
+          return <String>[trimmed];
+        }
       }
     }
 
