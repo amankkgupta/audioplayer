@@ -1,28 +1,15 @@
-import 'package:bhagavad_gita_english/splash_screen.dart';
-import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import 'splash_screen.dart';
 import 'home/viewmodals/home_view_model.dart';
-import 'home/viewmodals/player_view_model.dart';
-import 'home/services/audio_handler.dart';
 import 'home/views/chapters.dart';
-import 'home/views/home.dart';
 import 'theme/app_colors.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final audioHandler = await AudioService.init<AppAudioHandler>(
-    builder: () => AppAudioHandler(),
-    config: AudioServiceConfig(
-      androidNotificationChannelId: 'com.apps.bhagavadgitaenglish.channel.audio',
-      androidNotificationChannelName: 'Audio Playback',
-      androidNotificationOngoing: true,
-      androidStopForegroundOnPause: true,
-    ),
-  );
   await dotenv.load(fileName: ".env");
   await Supabase.initialize(
       url: dotenv.env['SUPABASE_URL']!,
@@ -32,11 +19,6 @@ Future<void> main() async {
     providers: [
       ChangeNotifierProvider<HomeVm>(
         create: (context) => HomeVm(),
-      ),
-      ChangeNotifierProvider<PlayerVm>(
-        create: (context) => PlayerVm(
-          audioHandler: audioHandler,
-        ),
       ),
     ],
       child: const MyApp()));
@@ -58,7 +40,7 @@ class MyApp extends StatelessWidget {
     );
 
     return MaterialApp(
-      title: 'Bhagavad Gita English',
+      title: 'Bhagavad Gita Hindi',
       theme: ThemeData(
         colorScheme: colorScheme,
         scaffoldBackgroundColor: AppColors.scaffoldBackground,
@@ -96,9 +78,7 @@ class MyApp extends StatelessWidget {
       ),
       home: const SplashScreen(),
       routes: {
-        '/audiolist': (context) => const ListAudioScreen(
-          contentMode: ChapterContentMode.audio,
-        ),
+        '/audiolist': (context) => const ListAudioScreen(),
       },
       debugShowCheckedModeBanner: false,
     );

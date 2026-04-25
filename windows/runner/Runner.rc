@@ -89,13 +89,13 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "com.apps.bhagavadgitaenglish" "\0"
-            VALUE "FileDescription", "Bhagavad Gita English" "\0"
+            VALUE "CompanyName", "com.apps.bhagavadgitaaudio" "\0"
+            VALUE "FileDescription", "Bhagavad Gita Hindi" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "Bhagavad Gita English" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2026 com.apps.bhagavadgitaenglish. All rights reserved." "\0"
-            VALUE "OriginalFilename", "BhagavadGitaEnglish.exe" "\0"
-            VALUE "ProductName", "Bhagavad Gita English" "\0"
+            VALUE "InternalName", "Bhagavad Gita Hindi" "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2026 com.apps.bhagavadgitaaudio. All rights reserved." "\0"
+            VALUE "OriginalFilename", "BhagavadGitaHindi.exe" "\0"
+            VALUE "ProductName", "Bhagavad Gita Hindi" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

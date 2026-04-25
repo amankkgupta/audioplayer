@@ -11,7 +11,6 @@ import '../../assets.dart';
 import '../../config/app_constants.dart';
 import '../../theme/app_colors.dart';
 import 'chapters.dart';
-import 'mini_player_bar.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -55,7 +54,7 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Bhagavad Gita English',
+          'Bhagavad Gita Hindi',
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800),
         ),
       ),
@@ -89,7 +88,7 @@ class HomeScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 14),
                     const Text(
-                      'Bhagavad Gita English',
+                      'Bhagavad Gita Hindi',
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w700,
@@ -134,7 +133,6 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: const MiniPlayerBar(),
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -150,33 +148,29 @@ class HomeScreen extends StatelessWidget {
         child: ListView(
           padding: const EdgeInsets.all(16),
           children: [
-            _HomeActionCard(
-              icon: Icons.music_note_rounded,
-              title: 'Audio',
-              subtitle: 'Browse chapters',
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => const ListAudioScreen(
-                      contentMode: ChapterContentMode.audio,
-                    ),
-                  ),
-                );
-              },
-            ),
-            const SizedBox(height: 14),
+            // _HomeActionCard(
+            //   icon: Icons.music_note_rounded,
+            //   title: 'Audio',
+            //   subtitle: 'Browse chapters',
+            //   onTap: () {
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(
+            //         builder: (_) => const ListAudioScreen(),
+            //       ),
+            //     );
+            //   },
+            // ),
+            // const SizedBox(height: 14),
             _HomeActionCard(
               icon: Icons.book_rounded,
-              title: 'Book',
-              subtitle: 'Read PDFs',
+              title: 'Read Bhagavad Gita',
+              subtitle: 'Browse Hindi chapters',
               onTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (_) => const ListAudioScreen(
-                      contentMode: ChapterContentMode.book,
-                    ),
+                    builder: (_) => const ListAudioScreen(),
                   ),
                 );
               },
@@ -284,7 +278,3 @@ class _HomeActionCard extends StatelessWidget {
   }
 }
 
-enum ChapterContentMode {
-  audio,
-  book,
-}

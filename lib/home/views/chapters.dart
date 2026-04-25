@@ -5,16 +5,9 @@ import '../../assets.dart';
 import '../../theme/app_colors.dart';
 import '../viewmodals/home_view_model.dart';
 import 'audio_list.dart';
-import 'home.dart';
-import 'mini_player_bar.dart';
 
 class ListAudioScreen extends StatefulWidget {
-  const ListAudioScreen({
-    super.key,
-    required this.contentMode,
-  });
-
-  final ChapterContentMode contentMode;
+  const ListAudioScreen({super.key});
 
   @override
   State<ListAudioScreen> createState() => _ListAudioScreenState();
@@ -26,12 +19,6 @@ class _ListAudioScreenState extends State<ListAudioScreen> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final homeVm = context.read<HomeVm>();
-      if (widget.contentMode == ChapterContentMode.audio) {
-        if (homeVm.audioList.isEmpty && !homeVm.isLoading) {
-          homeVm.fetchAudios();
-        }
-        return;
-      }
       if (homeVm.bookList.isEmpty && !homeVm.isLoading) {
         homeVm.fetchBooks();
       }
@@ -42,22 +29,15 @@ class _ListAudioScreenState extends State<ListAudioScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          widget.contentMode == ChapterContentMode.audio
-              ? 'Bhagavad Gita English Audio'
-              : 'Bhagavad Gita English Book',
-          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w800),
+        title: const Text(
+          'Bhagavad Gita Hindi',
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800),
         ),
       ),
-      bottomNavigationBar: const MiniPlayerBar(),
       body: Consumer<HomeVm>(
         builder: (context, audioVm, _) {
-          final chapterList = widget.contentMode == ChapterContentMode.audio
-              ? audioVm.audioList
-              : audioVm.bookList;
-          final onRetry = widget.contentMode == ChapterContentMode.audio
-              ? audioVm.fetchAudios
-              : audioVm.fetchBooks;
+          final chapterList = audioVm.bookList;
+          final onRetry = audioVm.fetchBooks;
 
           if (audioVm.isLoading && chapterList.isEmpty) {
             return const Center(child: CircularProgressIndicator());
@@ -96,19 +76,12 @@ class _ListAudioScreenState extends State<ListAudioScreen> {
                 onTap: () {
                   if (chapterIndex >= chapterList.length) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(
-                          widget.contentMode == ChapterContentMode.audio
-                              ? 'Audio list not loaded yet'
-                              : 'Book list not loaded yet',
-                        ),
-                      ),
+                      const SnackBar(content: Text('Book list not loaded yet')),
                     );
                     return;
                   }
 
-                  if (widget.contentMode == ChapterContentMode.book &&
-                      chapterList[chapterIndex].pdfUrls.isEmpty) {
+                  if (chapterList[chapterIndex].pdfUrls.isEmpty) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text('Book PDF not available')),
                     );
@@ -119,12 +92,9 @@ class _ListAudioScreenState extends State<ListAudioScreen> {
                     context,
                     MaterialPageRoute(
                       builder: (_) => AudioListScreen(
-                        contentMode: widget.contentMode,
                         chapterIndex: chapterIndex,
                         skandhName: chapterList[chapterIndex].title,
-                        chapterUrls: widget.contentMode == ChapterContentMode.audio
-                            ? chapterList[chapterIndex].urls
-                            : chapterList[chapterIndex].pdfUrls,
+                        chapterUrls: chapterList[chapterIndex].pdfUrls,
                       ),
                     ),
                   );

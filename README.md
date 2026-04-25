@@ -1,4 +1,4 @@
-# Bhagavad Gita English
+# Bhagavad Gita Hindi
 
 A new Flutter project.
 

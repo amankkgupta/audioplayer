@@ -1,5 +1,5 @@
-name: bhagavad_gita_english
-description: "Bhagavad Gita English audio and reading app."
+name: bhagavad_gita_audio
+description: "Bhagavad Gita Hindi audio and reading app."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev

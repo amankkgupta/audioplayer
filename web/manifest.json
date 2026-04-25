@@ -1,11 +1,11 @@
 {
-    "name": "Bhagavad Gita English",
-    "short_name": "Gita English",
+    "name": "Bhagavad Gita Hindi",
+    "short_name": "Gita Hindi",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#FFF1E0",
     "theme_color": "#D2691E",
-    "description": "Bhagavad Gita English audio and reading app.",
+    "description": "Bhagavad Gita Hindi audio and reading app.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

@@ -69,7 +69,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   ),
                   const SizedBox(height: 18),
                   const Text(
-                    'Bhagavad Gita English',
+                    'Bhagavad Gita Hindi',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 26,
@@ -79,7 +79,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   ),
                   const SizedBox(height: 8),
                   const Text(
-                    'Listen and read with a simple, focused experience.',
+                    'Listen and read the Hindi edition with a simple, focused experience.',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 14,

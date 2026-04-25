@@ -44,7 +44,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
             title: Text(
               playerVm.hasPlaylist
                   ? '${playerVm.skandhName} अध्याय ${playerVm.currentIndex + 1}'
-                  : 'Bhagavad Gita English Player',
+                  : 'Bhagavad Gita Hindi Player',
               style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w800),
             ),
           ),
